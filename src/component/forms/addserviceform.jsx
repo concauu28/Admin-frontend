@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {addServiceAPI} from '../../util/api'
 import { notification } from "antd";
-const ServiceForm = () => {
+const AddServiceForm = () => {
   const [formData, setFormData] = useState({
     service_id: '',
     service_name: '',
@@ -9,7 +9,7 @@ const ServiceForm = () => {
     price: 0,
     type_of_service: '',
     completion_time: '',
-    notes: ''
+    notes: '',
   });
 
   const handleChange = (e) => {
@@ -134,4 +134,4 @@ const ServiceForm = () => {
   );
 };
 
-export default ServiceForm;
+export default AddServiceForm;

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { getCustomerAPI, getCustomerRequestAPI, getCompanyAPI} from '../util/api';
+import { getCustomerAPI, getCustomerRequestAPI, getCompanyAPI, updateCustomerAPI , updateCompanyAPI} from '../../util/api';
 import { notification } from 'antd';
 import { useParams } from 'react-router-dom';
-import CustomerRequestsTable from '../component/forms/customerrequest_table';
+import CustomerRequestsTable from '../../component/forms/customerrequest_table';
 const CustomerProfile = () => {   
   const { email } = useParams(); 
   const [haveCompany, setHaveCompany] = useState(false);
@@ -25,10 +25,32 @@ const CustomerProfile = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Form data submitted:', { userInfo, companyInfo });
-    // You can add code here to send the form data to the backend
+    const res = await updateCustomerAPI(userInfo);
+    if (res?.EC === 0) {
+      notification.success({
+        message: "Cập nhật thông tin khách hàng thành công",
+        description: "Thông tin khách hàng đã được cập nhật thành công",
+      });
+    } else {
+      notification.error({
+        message: "Lỗi cập nhật thông tin khách hàng",
+        description: res.message || "Không thể cập nhật thông tin khách hàng",
+      });
+    }
+    const res2 = await updateCompanyAPI(companyInfo);
+    if (res2?.EC === 0) {
+      notification.success({
+        message: "Cập nhật thông tin công ty thành công",
+        description: "Thông tin công ty đã được cập nhật thành công",
+      })}
+    else {
+      notification.error({
+        message: "Lỗi cập nhật thông tin công ty",
+        description: res2.message || "Không thể cập nhật thông tin công ty",
+      });}
+    console.log(companyInfo);
   };
 
   useEffect(() => {
@@ -75,7 +97,6 @@ const CustomerProfile = () => {
     };
     fetchRequest();
   }, [email]);
-  console.log(">>check userInfo",userInfo)
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -84,8 +105,8 @@ const CustomerProfile = () => {
           <label>Họ và Tên:</label>
           <input
             type="text"
-            name="customer_name"
-            value={userInfo.customer_name || ''}
+            name="name"
+            value={userInfo.name || ''}
             onChange={handleUserChange}
           />
         </div>
@@ -104,8 +125,8 @@ const CustomerProfile = () => {
           <label>Email:</label>
           <input
             type="email"
-            name="customer_email"
-            value={userInfo.customer_email || ''}
+            name="email"
+            value={userInfo.email || ''}
             onChange={handleUserChange}
           />
         </div>

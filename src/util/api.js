@@ -19,10 +19,20 @@ const addCustomerAPI = (data)=>{
     const URL_API='/registercustomer'
     return axios.post(URL_API,userinfo)
 }
+const addProviderAPI = (data)=>{
+    const userinfo=data
+    const URL_API='/registerprovider'
+    return axios.post(URL_API,userinfo)
+}
 const updateCustomerAPI = (data)=>{
-    const email=data.email
-    const userinfo=data.info
-    const URL_API = `/updatecustomer/${email}`
+    const userinfo=data
+    const URL_API = `/updatecustomer/`
+    return axios.put(URL_API,userinfo)
+}
+const updateCompanyAPI = (data)=>{
+    const companyInfo=data
+    const URL_API = `/updatecompany`
+    return axios.put(URL_API,companyInfo)
 }
 const addCompanyAPI = (data)=>{
     const companyInfo=data
@@ -43,6 +53,11 @@ const addRecurringRequestAPI = (data)=>{
     const request= data
     const URL_API='/recurringrequest'
     return axios.post(URL_API,request)
+}
+const addProviderServiceAPI = (data)=>{
+    const service = data
+    const URL_API='/addproviderservice'
+    return axios.post(URL_API, service)
 }
 
 const loginAPI = (email,password)=>{
@@ -88,9 +103,15 @@ const getCompanyAPI = (email)=>{
     const URL_API=`/getcompany/${userEmail}`
     return axios.get(URL_API)
 }
+const getlistProviderAPI = ()=>{
+    const URL_API=`/getlistprovider`
+    return axios.get(URL_API)
+}
+
 
 export{
-    createEmployeeAPI,addRequestAPI,
+    createEmployeeAPI,addRequestAPI, addProviderAPI, updateCustomerAPI,
     loginAPI,getUserAPI, getCustomerAPI, getlistCustomerAPI, getCustomerRequestAPI, addCustomerAPI, addCompanyAPI,
-    getServicesAPI,getCompanyAPI, getRequestsAPI, addServiceAPI, addRecurringRequestAPI
+    getServicesAPI,getCompanyAPI, getRequestsAPI, addServiceAPI, addRecurringRequestAPI, getlistProviderAPI, 
+    addProviderServiceAPI, updateCompanyAPI
 }

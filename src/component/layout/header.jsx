@@ -29,7 +29,7 @@ const Header = () => {
                     icon: <MailOutlined />,
                 },
                 {
-                    label: <Link to={`/addrequest`}>Mua Hàng</Link>,
+                    label: <Link to={`/addrequest`}>Bán hàng </Link>,
                     key: 'addrequest',
                     icon: <MailOutlined />,
                 },

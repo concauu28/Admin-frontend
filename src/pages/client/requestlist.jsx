@@ -1,7 +1,7 @@
 import { notification, Table } from "antd";
 import { useEffect, useState, useNavigate } from "react";
-import { getRequestsAPI } from "../util/api";
-import RequestTable from "../component/forms/requeststable";
+import { getRequestsAPI } from "../../util/api";
+import RequestTable from "../../component/forms/requeststable";
 const RequestPage = ()=>{
     const [initialRequests, setinitialRequests]= useState([])
     // const navigate = useNavigate();

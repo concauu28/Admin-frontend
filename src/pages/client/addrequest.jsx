@@ -1,8 +1,8 @@
 import { notification, Table } from "antd";
 import { useEffect, useState, useNavigate } from "react";
-import ServiceTable from "../component/forms/addservicetable";
-import RecurringTable from "../component/forms/recurringrequesttable";
-import { getlistCustomerAPI, getServicesAPI, addRequestAPI,getRequestsAPI } from '../util/api';
+import RequestForm from "../../component/forms/addrequestform";
+import RecurringTable from "../../component/forms/recurringrequesttable";
+import { getlistCustomerAPI, getServicesAPI, addRequestAPI,getRequestsAPI } from '../../util/api';
 const AddRequest = ()=>{
     const [flip, setFlip] = useState(false);
     const [requests, setRequests] = useState([]);
@@ -78,7 +78,7 @@ const AddRequest = ()=>{
     return (
         <div>
             <h1>Mua Hang</h1>
-            <ServiceTable 
+            <RequestForm 
                 customers={customers} 
                 services={services} 
                 onSubmit={handleFirstFormSubmit} 

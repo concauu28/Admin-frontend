@@ -4,14 +4,16 @@ import { useParams } from 'react-router-dom';
 import './style/global.css';
 import App from './App';
 import RegisterPage from './pages/register';
-import UserPage from './pages/user';
+import UserPage from './pages/client/user';
 import HomePage from './pages/home';
-import CustomerProfle from './pages/customerprofile'
-import AddCustomer from './pages/addcustomer';
-import AddRequest from './pages/addRequest';
-import RequestPage from './pages/request';
-import ServicePage from './pages/addservice';
+import CustomerProfle from './pages/client/customerprofile'
+import AddCustomer from './pages/client/addcustomer';
+import AddRequest from './pages/client/addrequest';
+import RequestPage from './pages/client/requestlist';
+import ServicePage from './pages/client/addservice';
 import ReportPage from './pages/report';
+import CreateProvider from './pages/provider/addprovider';
+import AddProviderService from './pages/provider/addproviderservice';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -62,6 +64,14 @@ const router = createBrowserRouter([
         path: "register",
         element: <RegisterPage/>,
       },
+      {
+        path: "registerprovider",
+        element: <CreateProvider/>,
+      },
+      {
+        path:"addproviderservice",
+        element: <AddProviderService/>
+      }
     ]
   },
 

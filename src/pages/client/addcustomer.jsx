@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { notification } from 'antd';
-import { addCustomerAPI, addCompanyAPI } from '../util/api';
+import { addCustomerAPI, addCompanyAPI } from '../../util/api';
 
 const AddCustomer = () => {   
     const [newCustomerId, setNewCustomerId] = useState(null);
     const [userInfo, setUserInfo] = useState({
-        customer_name: "",
-        username: "",
-        phone_number: "",
-        customer_email: "",
-        nationality: "",
-        initials: "",
+        customer_name: null,
+        username: null,
+        phone_number: null,
+        customer_email: null,
+        nationality: null,
+        initials: null,
         status: "Active", // Assuming status is always "Active" at creation
-        company_name: "",
-        company_email: "",
-        tax_number: "",
-        address: "",
-        business_domain: "",
+        company_name: null,
+        company_email: null,
+        tax_number: null,
+        address: null,
+        business_domain: null,
     });
 
     const handleChange = (e) => {
@@ -94,12 +94,13 @@ const AddCustomer = () => {
             <form onSubmit={handleSubmit}>
                 <h3>Thông tin khách hàng</h3>
                 <div>
-                    <label>Họ và Tên:</label>
+                    <label>*Họ và Tên:</label>
                     <input
                         type="text"
                         name="customer_name"
                         value={userInfo.customer_name}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
@@ -121,12 +122,13 @@ const AddCustomer = () => {
                     />
                 </div>
                 <div>
-                    <label>Email:</label>
+                    <label>*Email:</label>
                     <input
                         type="email"
                         name="customer_email"
                         value={userInfo.customer_email}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
@@ -139,23 +141,25 @@ const AddCustomer = () => {
                     />
                 </div>
                 <div>
-                    <label>Viết tắt:</label>
+                    <label>*Viết tắt:</label>
                     <input
                         type="text"
                         name="initials"
                         value={userInfo.initials}
                         onChange={handleChange}
+                        required
                     />
                 </div>
 
                 <h3>Thông tin công ty</h3>
                 <div>
-                    <label>Tên công ty:</label>
+                    <label>*Tên công ty:</label>
                     <input
                         type="text"
                         name="company_name"
                         value={userInfo.company_name}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <div>
@@ -186,12 +190,13 @@ const AddCustomer = () => {
                     />
                 </div>
                 <div>
-                    <label>Email:</label>
+                    <label>*Email:</label>
                     <input
                         type="email"
                         name="company_email"
                         value={userInfo.company_email}
                         onChange={handleChange}
+                        required
                     />
                 </div>
                 <button type="submit">Lưu</button>

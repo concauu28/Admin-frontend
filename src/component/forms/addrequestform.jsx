@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const ServiceTable = ({ customers, services, onSubmit }) => {
+const RequestForm = ({ customers, services, onSubmit }) => {
     const [formData, setFormData] = useState({
         customer_id: '',
         service_id: '',
@@ -254,4 +254,4 @@ const ServiceTable = ({ customers, services, onSubmit }) => {
     );
 };
 
-export default ServiceTable;
+export default RequestForm;
