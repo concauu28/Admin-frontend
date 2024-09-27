@@ -107,11 +107,14 @@ const getlistProviderAPI = ()=>{
     const URL_API=`/getlistprovider`
     return axios.get(URL_API)
 }
-
+const reportUserAPI = ()=>{
+    const URL_API=`/reportuser`
+    return axios.get(URL_API)
+}
 
 export{
     createEmployeeAPI,addRequestAPI, addProviderAPI, updateCustomerAPI,
     loginAPI,getUserAPI, getCustomerAPI, getlistCustomerAPI, getCustomerRequestAPI, addCustomerAPI, addCompanyAPI,
     getServicesAPI,getCompanyAPI, getRequestsAPI, addServiceAPI, addRecurringRequestAPI, getlistProviderAPI, 
-    addProviderServiceAPI, updateCompanyAPI
+    addProviderServiceAPI, updateCompanyAPI, reportUserAPI
 }

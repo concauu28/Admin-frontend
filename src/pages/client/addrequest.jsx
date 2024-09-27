@@ -77,7 +77,7 @@ const AddRequest = ()=>{
 
     return (
         <div>
-            <h1>Mua Hang</h1>
+            <h1>Bán Hàng </h1>
             <RequestForm 
                 customers={customers} 
                 services={services} 

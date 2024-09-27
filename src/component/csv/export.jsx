@@ -1,13 +1,13 @@
 import React, { useState,useEffect } from 'react';
 import { notification } from 'antd';
 import { CSVLink, CSVDownload } from "react-csv";
-import { getlistCustomerAPI,getRequestsAPI } from '../../util/api';
+import { getlistCustomerAPI,getRequestsAPI, reportUserAPI } from '../../util/api';
 const CsvExporter = (code) => {
     const [data,setData]=useState([])
     const fetchUser = async()=>{
-        const res = await getlistCustomerAPI()
-        if(!res?.message){
-            setData(res)
+        const res = await reportUserAPI()
+        if(res.EC===0){
+            setData(res.customers)
         }
         else{
             notification.error({
@@ -18,7 +18,7 @@ const CsvExporter = (code) => {
     }
     const fetchRequests = async()=>{
         const res = await getRequestsAPI()
-        if(!res?.message){
+        if(res.EC===0){
             setData(res.requests)
         }
         else{
