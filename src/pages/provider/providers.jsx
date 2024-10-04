@@ -1,27 +1,27 @@
 import { notification, Table } from "antd";
 import { useEffect, useState, useNavigate } from "react";
-import { getlistCustomerAPI } from "../../util/api";
-import CustomerTable from "../../component/forms/servicetable";
+import { getlistProviderAPI } from "../../util/api";
+import ProviderTable from "../../component/forms/provider_form/listofprovider";
 const ProviderPage = ()=>{
     const [dataSource, setDataSource]= useState([])
-    // useEffect(()=>{
-    //     const fetchUser = async()=>{
-    //         const res = await getlistCustomerAPI()
-    //         if(!res?.message){
-    //             setDataSource(res)
-    //         }
-    //         else{
-    //             notification.error({
-    //                 message: "Unauthorized",
-    //                 description: res.message
-    //             })
-    //         }
-    //     }
-    //     fetchUser()
-    // },[])
+    useEffect(()=>{
+        const fetchProvider = async()=>{
+            const res = await getlistProviderAPI()
+            if(res.EC===0){
+                setDataSource(res.list_providers)
+            }
+            else{
+                notification.error({
+                    message: "Unauthorized",
+                    description: res.message
+                })
+            }
+        }
+        fetchProvider()
+    },[])
     return(
         <div>
-            <CustomerTable data={dataSource}/>
+            <ProviderTable data={dataSource}/>
         </div>
     )
 }

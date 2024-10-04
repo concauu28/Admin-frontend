@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { useParams } from 'react-router-dom';
 import './style/global.css';
 import App from './App';
 import RegisterPage from './pages/register';
@@ -14,11 +13,11 @@ import ServicePage from './pages/client/addservice';
 import ReportPage from './pages/report';
 import CreateProvider from './pages/provider/addprovider';
 import AddProviderService from './pages/provider/addproviderservice';
+import ProviderPage from './pages/provider/providers';
+import ProviderProfile from './pages/provider/providerprofile';
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
-  Link,
 } from "react-router-dom";
 import LoginPage from './pages/login';
 import { AuthWrapper } from './component/context/auth.context';
@@ -71,6 +70,14 @@ const router = createBrowserRouter([
       {
         path:"addproviderservice",
         element: <AddProviderService/>
+      },
+      {
+        path: "listofprovider",
+        element: <ProviderPage/>,
+      },
+      {
+        path: "provider/:user_id",
+        element: <ProviderProfile/>,
       }
     ]
   },

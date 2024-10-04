@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 function CustomerTable({ data }) {
   const navigate = useNavigate();
-  console.log(data);
   if (!Array.isArray(data)) {
     return <div>No customer data available.</div>;
   }

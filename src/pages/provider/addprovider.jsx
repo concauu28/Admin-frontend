@@ -69,7 +69,7 @@ const CreateProvider = () => {
                     />
                 </div>
                 <div>
-                    <label>Email:</label>
+                    <label>*Email:</label>
                     <input
                         type="email"
                         name="email"
@@ -77,15 +77,6 @@ const CreateProvider = () => {
                         onChange={handleChange}
                     />
                 </div>
-                {/* <div>
-                    <label>Mật khẩu:</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={providerInfo.password}
-                        onChange={handleChange}
-                    />
-                </div> */}
                 <div>
                     <label>Số điện thoại:</label>
                     <input
@@ -96,7 +87,7 @@ const CreateProvider = () => {
                     />
                 </div>
                 <div>
-                    <label>Viết tắt:</label>
+                    <label>*Viết tắt:</label>
                     <input
                         type="text"
                         name="provider_initials"

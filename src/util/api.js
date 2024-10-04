@@ -107,6 +107,26 @@ const getlistProviderAPI = ()=>{
     const URL_API=`/getlistprovider`
     return axios.get(URL_API)
 }
+const getProviderAPI = (id)=>{
+    const userid=id
+    const URL_API=`/getprovider/${userid}`
+    return axios.get(URL_API)
+}
+const getProviderServiceAPI = (user_id)=>{
+    const URL_API=`/getproviderservice/${user_id}`
+    return axios.get(URL_API)
+}
+
+const updateProviderAPI = (data)=>{
+    const providerInfo=data
+    const URL_API=`/updateprovider`
+    return axios.put(URL_API,providerInfo)
+}
+const updateProviderServicesAPI = (data)=>{
+    const providerServices=data
+    const URL_API=`/updateproviderservice`
+    return axios.put(URL_API,providerServices)
+}
 const reportUserAPI = ()=>{
     const URL_API=`/reportuser`
     return axios.get(URL_API)
@@ -116,5 +136,6 @@ export{
     createEmployeeAPI,addRequestAPI, addProviderAPI, updateCustomerAPI,
     loginAPI,getUserAPI, getCustomerAPI, getlistCustomerAPI, getCustomerRequestAPI, addCustomerAPI, addCompanyAPI,
     getServicesAPI,getCompanyAPI, getRequestsAPI, addServiceAPI, addRecurringRequestAPI, getlistProviderAPI, 
-    addProviderServiceAPI, updateCompanyAPI, reportUserAPI
+    addProviderServiceAPI, updateCompanyAPI, reportUserAPI, getProviderAPI, getProviderServiceAPI
+    ,updateProviderAPI,updateProviderServicesAPI
 }

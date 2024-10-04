@@ -19,16 +19,6 @@ const Header = () => {
             },
             ...(auth.isAuthenticated ? [
                 {
-                    label: <Link to={`/user`}>Danh sách khách hàng</Link>,
-                    key: 'user',
-                    icon: <MailOutlined />,
-                },
-                {
-                    label: <Link to={`/addcustomer`}>Thêm Khách Hàng</Link>,
-                    key: 'addcustomer',
-                    icon: <MailOutlined />,
-                },
-                {
                     label: <Link to={`/addrequest`}>Bán hàng </Link>,
                     key: 'addrequest',
                     icon: <MailOutlined />,
@@ -48,6 +38,44 @@ const Header = () => {
                     key: 'report',
                     icon: <MailOutlined />,
                 },
+                {
+                    label: 'Khach Hang',
+                    key: 'customercontainer',
+                    icon: <MailOutlined />,
+                    children: [
+                        {
+                            label: <Link to={`/user`}>Danh sách khách hàng</Link>,
+                            key: 'user',
+                            icon: <MailOutlined />,
+                        },
+                        {
+                            label: <Link to={`/addcustomer`}>Thêm Khách Hàng</Link>,
+                            key: 'addcustomer',
+                            icon: <MailOutlined />,
+                        },
+                    ]
+
+                },
+                {
+                    label: 'Nha cung cap',
+                    key: 'providercontainer',
+                    icon: <MailOutlined />,
+                    children: [
+                        {
+                            label: <Link to={`/listofprovider`}>Danh sách nhà cung cấp</Link>,
+                            key: 'provider',
+                        },
+                        {
+                            label: <Link to={`/registerprovider`}>Thêm nhà cung cấp</Link>,
+                            key: 'addprovider',
+                        },
+                        {
+                            label: <Link to={`/addproviderservice`}>Thêm dịch vụ nhà cung cấp</Link>,
+                            key: 'addproviderservice',
+                        }
+                    ]
+
+                }
             ] : []),
             {
                 label: `Welcome`,
