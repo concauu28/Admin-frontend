@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { getCustomerAPI, getCustomerRequestAPI, getCompanyAPI, updateCustomerAPI , updateCompanyAPI} from '../../util/api';
+import React, { useState, useEffect } from 'react';
+import { getCustomerAPI, getCustomerRequestAPI, getCompanyAPI, updateCustomerAPI, updateCompanyAPI, uploadDocumentAPI} from '../../util/api';
 import { notification } from 'antd';
 import { useParams } from 'react-router-dom';
 import CustomerRequestsTable from '../../component/forms/customerrequest_table';
-const CustomerProfile = () => {   
-  const { email } = useParams(); 
+import FileUploader from '../../component/file/fileuploader'; // Import FileUploader component
+import DocumentList from '../../component/file/documentlist';
+
+const CustomerProfile = () => {
+  const { email } = useParams();
   const [haveCompany, setHaveCompany] = useState(false);
   const [requests, setRequests] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const [companyInfo, setCompanyInfo] = useState({});
+  const [uploadedFile, setUploadedFile] = useState(null); // State for uploaded file
 
   const handleUserChange = (e) => {
     setUserInfo({
@@ -25,32 +28,54 @@ const CustomerProfile = () => {
     });
   };
 
-  const handleSubmit = async(e) => {
+  const handleFileSelect = (file) => {
+    setUploadedFile(file); // Store selected file in state
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Update customer and company information first
     const res = await updateCustomerAPI(userInfo);
     if (res?.EC === 0) {
       notification.success({
-        message: "Cập nhật thông tin khách hàng thành công",
-        description: "Thông tin khách hàng đã được cập nhật thành công",
+        message: 'Cập nhật thông tin khách hàng thành công',
+        description: 'Thông tin khách hàng đã được cập nhật thành công',
       });
     } else {
       notification.error({
-        message: "Lỗi cập nhật thông tin khách hàng",
-        description: res.message || "Không thể cập nhật thông tin khách hàng",
+        message: 'Lỗi cập nhật thông tin khách hàng',
+        description: res.message || 'Không thể cập nhật thông tin khách hàng',
       });
     }
+
     const res2 = await updateCompanyAPI(companyInfo);
     if (res2?.EC === 0) {
       notification.success({
-        message: "Cập nhật thông tin công ty thành công",
-        description: "Thông tin công ty đã được cập nhật thành công",
-      })}
-    else {
+        message: 'Cập nhật thông tin công ty thành công',
+        description: 'Thông tin công ty đã được cập nhật thành công',
+      });
+    } else {
       notification.error({
-        message: "Lỗi cập nhật thông tin công ty",
-        description: res2.message || "Không thể cập nhật thông tin công ty",
-      });}
-    console.log(companyInfo);
+        message: 'Lỗi cập nhật thông tin công ty',
+        description: res2.message || 'Không thể cập nhật thông tin công ty',
+      });
+    }
+
+    // If a file is uploaded, handle it using FormData
+    if (uploadedFile) {
+      const res1 = await uploadDocumentAPI({doc:uploadedFile, email:email});
+      if (res1?.EC === 0) {
+        notification.success({
+          message: 'Tải tài liệu lên thành công',
+          description: 'Tài liệu đã được tải lên thành công',
+        });
+      } else {
+        notification.error({
+          message: 'Lỗi tải tài liệu lên',
+          description: res1.message || 'Không thể tải tài liệu lên',
+        });}
+    }
   };
 
   useEffect(() => {
@@ -60,7 +85,7 @@ const CustomerProfile = () => {
         setUserInfo(res.customer);
       } else {
         notification.error({
-          message: "Unauthorized",
+          message: 'Unauthorized',
           description: res.message || 'Unable to fetch customer data',
         });
       }
@@ -78,7 +103,7 @@ const CustomerProfile = () => {
         setHaveCompany(false);
       } else {
         notification.error({
-          message: "Unauthorized",
+          message: 'Unauthorized',
           description: res.message || 'Unable to fetch company data',
         });
       }
@@ -91,12 +116,11 @@ const CustomerProfile = () => {
       const res = await getCustomerRequestAPI(email);
       if (res?.EC === 0) {
         setRequests(res.requests || []);
-      } else {
-        // Handle error or empty state as needed
       }
     };
     fetchRequest();
   }, [email]);
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -185,14 +209,22 @@ const CustomerProfile = () => {
             </div>
           </>
         )}
+        <h3>
+          Tài Liệu đã tải lên
+        </h3>
+        <DocumentList email={email} /> {/* Document list component */}
+
+
+        <h3>Tải Tài Liệu Lên</h3>
+        <FileUploader onFileSelect={handleFileSelect} /> {/* File uploader component */}
 
         <h3>Dịch vụ đã sử dụng</h3>
         <CustomerRequestsTable requests={requests} />
 
-        <h3>Lịch sử giao dịch</h3>
         <button type="submit">Lưu</button>
       </form>
     </>
   );
 };
-export default CustomerProfile
+
+export default CustomerProfile;

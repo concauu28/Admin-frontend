@@ -131,11 +131,29 @@ const reportUserAPI = ()=>{
     const URL_API=`/reportuser`
     return axios.get(URL_API)
 }
+const uploadDocumentAPI = (data)=>{
+    const formData = new FormData();
+    formData.append('file', data.doc); 
+    formData.append('email', data.email);
+    const URL_API=`/uploaddoc`
+    return axios.post(URL_API,formData,{headers: {"Content-Type": "multipart/form-data"}})
+}
+const getDocumentAPI = (email)=>{
+    const userEmail=email
+    const URL_API=`/getdocuments/${userEmail}`
+    return axios.get(URL_API)
+}
+const deleteDocumentAPI =async (doc_name)=>{
+    const response = await axios.delete('/deletedoc', {
+        data: { doc_name }, // Pass body inside `data`
+      });
+      return response;
+}
 
 export{
     createEmployeeAPI,addRequestAPI, addProviderAPI, updateCustomerAPI,
     loginAPI,getUserAPI, getCustomerAPI, getlistCustomerAPI, getCustomerRequestAPI, addCustomerAPI, addCompanyAPI,
     getServicesAPI,getCompanyAPI, getRequestsAPI, addServiceAPI, addRecurringRequestAPI, getlistProviderAPI, 
     addProviderServiceAPI, updateCompanyAPI, reportUserAPI, getProviderAPI, getProviderServiceAPI
-    ,updateProviderAPI,updateProviderServicesAPI
+    ,updateProviderAPI,updateProviderServicesAPI, uploadDocumentAPI, getDocumentAPI, deleteDocumentAPI
 }

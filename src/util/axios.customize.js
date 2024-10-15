@@ -1,7 +1,4 @@
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
-
-
 // Set config defaults when creating the instance
 const instance = axios.create({
     baseURL: 'http://localhost:5000/api'
