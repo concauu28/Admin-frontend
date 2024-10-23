@@ -64,7 +64,6 @@ const AddCustomer = () => {
     }, [newCustomerId]);
 
     const createCompany = async () => {
-        console.log(">>bat dau tao cong ty");
         const companyData = {
             company_name: userInfo.company_name,
             customer_id: newCustomerId,
@@ -74,7 +73,6 @@ const AddCustomer = () => {
             address: userInfo.address,
             debt: 0, // Assuming a default value for debt as per your example
         };
-        console.log("Company data:", companyData);
         const res = await addCompanyAPI(companyData);
         if (res?.EC === 0) {
             notification.success({
@@ -122,13 +120,12 @@ const AddCustomer = () => {
                     />
                 </div>
                 <div>
-                    <label>*Email:</label>
+                    <label>Email:</label>
                     <input
                         type="email"
                         name="customer_email"
                         value={userInfo.customer_email}
                         onChange={handleChange}
-                        required
                     />
                 </div>
                 <div>
@@ -196,7 +193,6 @@ const AddCustomer = () => {
                         name="company_email"
                         value={userInfo.company_email}
                         onChange={handleChange}
-                        required
                     />
                 </div>
                 <button type="submit">Lưu</button>

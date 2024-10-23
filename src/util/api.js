@@ -80,14 +80,14 @@ const getlistCustomerAPI = ()=>{
     return axios.get(URL_API)
 }
 
-const getCustomerAPI = (email)=>{
-    const useremail=email
-    const URL_API=`/getcustomer/${useremail}`
+const getCustomerAPI = (id)=>{
+    const user_id=id
+    const URL_API=`/getcustomer/${user_id}`
     return axios.get(URL_API)
 }
-const getCustomerRequestAPI = (email)=>{
-    const useremail=email
-    const URL_API=`/getcustomerreq/${useremail}`
+const getCustomerRequestAPI = (id)=>{
+    const user_id=id
+    const URL_API=`/getcustomerreq/${user_id}`
     return axios.get(URL_API)
 }
 const getServicesAPI = ()=>{
@@ -134,7 +134,7 @@ const reportUserAPI = ()=>{
 const uploadDocumentAPI = (data)=>{
     const formData = new FormData();
     formData.append('file', data.doc); 
-    formData.append('email', data.email);
+    formData.append('user_id', data.user_id);
     const URL_API=`/uploaddoc`
     return axios.post(URL_API,formData,{headers: {"Content-Type": "multipart/form-data"}})
 }

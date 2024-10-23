@@ -7,7 +7,7 @@ import FileUploader from '../../component/file/fileuploader'; // Import FileUplo
 import DocumentList from '../../component/file/documentlist';
 
 const CustomerProfile = () => {
-  const { email } = useParams();
+  const {user_id} = useParams();
   const [haveCompany, setHaveCompany] = useState(false);
   const [requests, setRequests] = useState([]);
   const [userInfo, setUserInfo] = useState({});
@@ -64,7 +64,7 @@ const CustomerProfile = () => {
 
     // If a file is uploaded, handle it using FormData
     if (uploadedFile) {
-      const res1 = await uploadDocumentAPI({doc:uploadedFile, email:email});
+      const res1 = await uploadDocumentAPI({doc:uploadedFile, user_id:user_id});
       if (res1?.EC === 0) {
         notification.success({
           message: 'Tải tài liệu lên thành công',
@@ -80,7 +80,7 @@ const CustomerProfile = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await getCustomerAPI(email);
+      const res = await getCustomerAPI(user_id);
       if (res?.EC === 0 && res.customer) {
         setUserInfo(res.customer);
       } else {
@@ -91,11 +91,11 @@ const CustomerProfile = () => {
       }
     };
     fetchUser();
-  }, [email]);
+  }, [user_id]);
 
   useEffect(() => {
     const fetchCompany = async () => {
-      const res = await getCompanyAPI(email);
+      const res = await getCompanyAPI(user_id);
       if (res?.EC === 0 && res.company) {
         setHaveCompany(true);
         setCompanyInfo(res.company);
@@ -109,17 +109,17 @@ const CustomerProfile = () => {
       }
     };
     fetchCompany();
-  }, [email]);
+  }, [user_id]);
 
   useEffect(() => {
     const fetchRequest = async () => {
-      const res = await getCustomerRequestAPI(email);
+      const res = await getCustomerRequestAPI(user_id);
       if (res?.EC === 0) {
         setRequests(res.requests || []);
       }
     };
     fetchRequest();
-  }, [email]);
+  }, [user_id]);
 
   return (
     <>
@@ -212,7 +212,7 @@ const CustomerProfile = () => {
         <h3>
           Tài Liệu đã tải lên
         </h3>
-        <DocumentList email={email} /> {/* Document list component */}
+        <DocumentList user_id={user_id} /> {/* Document list component */}
 
 
         <h3>Tải Tài Liệu Lên</h3>

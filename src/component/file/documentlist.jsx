@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getDocumentAPI, deleteDocumentAPI } from '../../util/api'; // Import the delete function
 import { notification } from 'antd'; // Use Ant Design for notifications
 
-const DocumentList = ({ email }) => {
+const DocumentList = ({user_id}) => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ const DocumentList = ({ email }) => {
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const result = await getDocumentAPI(email);
+        const result = await getDocumentAPI(user_id);
         console.log(result);
 
         if (result?.EC === 0) {
@@ -27,7 +27,7 @@ const DocumentList = ({ email }) => {
     };
 
     fetchDocuments();
-  }, [email]);
+  }, [user_id]);
 
   // Handle document deletion
   const handleDelete = async (documentName) => {

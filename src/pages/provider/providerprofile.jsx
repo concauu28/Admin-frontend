@@ -11,6 +11,7 @@ const ProviderProfile = () => {
     provider_initials: '',
     tax_number: '',
     debt: '',
+    email:'',
     address: '',
     status: ''
   });
@@ -134,6 +135,15 @@ const ProviderProfile = () => {
             type="text"
             name="debt"
             value={providerInfo.debt || ''}
+            onChange={handleProviderChange}
+          />
+        </div>
+        <div>
+          <label>Email:</label>
+          <input
+            type="text"
+            name="email"
+            value={providerInfo.email || ''}
             onChange={handleProviderChange}
           />
         </div>
