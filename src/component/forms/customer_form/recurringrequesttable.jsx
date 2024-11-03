@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getRequestsAPI, addRecurringRequestAPI } from '../../util/api';
+import {  addRecurringRequestAPI } from '../../../util/api';
 import { notification } from 'antd';
 
 const RecurringTable = ({ customers, requests }) => {

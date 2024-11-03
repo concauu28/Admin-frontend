@@ -9,12 +9,14 @@ import CustomerProfle from './pages/client/customerprofile'
 import AddCustomer from './pages/client/addcustomer';
 import AddRequest from './pages/client/addrequest';
 import RequestPage from './pages/client/requestlist';
-import ServicePage from './pages/client/addservice';
+import ServicePage from './pages/services/addservice';
 import ReportPage from './pages/report';
 import CreateProvider from './pages/provider/addprovider';
 import AddProviderService from './pages/provider/addproviderservice';
 import ProviderPage from './pages/provider/providers';
 import ProviderProfile from './pages/provider/providerprofile';
+import EmailReminderPage from './pages/emailsender/reminder';
+import ServiceListPage from './pages/services/servicelist';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -78,6 +80,13 @@ const router = createBrowserRouter([
       {
         path: "provider/:user_id",
         element: <ProviderProfile/>,
+      },
+      {
+        path: "reminder",
+        element: <EmailReminderPage/>,
+      },{
+        path: "servicelist",
+        element: <ServiceListPage/>
       }
     ]
   },

@@ -6,14 +6,14 @@ import { AuthContext } from '../component/context/auth.context';
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const { setAuth } = useContext(AuthContext);
+    const {Auth, setAuth } = useContext(AuthContext);
 
     const onFinish = async (values) => {
         const { email, password } = values;
         const res = await loginAPI(email, password);
-        console.log(">>check login", res?.user?.name ?? "");
         if (res && res.EC === 0) {
             localStorage.setItem("access_token", res.access_token);
+            localStorage.setItem("user_id", res.user.user_id);
             notification.success({
                 message: "Đăng nhập thành công",
                 description: "success",

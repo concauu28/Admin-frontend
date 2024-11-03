@@ -29,9 +29,28 @@ const Header = () => {
                     icon: <MailOutlined />,
                 },
                 {
-                    label: <Link to={`/addservice`}>Thêm dịch vụ</Link>,
-                    key: 'addservice',
+                    label: 'Dịch vụ',
+                    key: 'servicecontainer',
                     icon: <MailOutlined />,
+                    children: [
+                        {
+                            label: <Link to={`/servicelist`}>Danh sách dịch vụ</Link>,
+                            key: 'servicelist',
+                            icon: <MailOutlined />,
+                        },
+                        {
+                            label: <Link to={`/addservice`}>Thêm dịch vụ</Link>,
+                            key: 'addservice',
+                            icon: <MailOutlined />,
+                        },
+                    ]
+                },
+
+                {
+                    label: <Link to={`/reminder`}>Nhắc việc</Link>,
+                    key: 'reminder',
+                    icon: <MailOutlined />,
+
                 },
                 {
                     label: <Link to={`/report`}>Báo cáo</Link>,
@@ -75,7 +94,7 @@ const Header = () => {
                         }
                     ]
 
-                }
+                },
             ] : []),
             {
                 label: `Welcome`,

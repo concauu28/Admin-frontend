@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { getCustomerAPI, getCustomerRequestAPI, getCompanyAPI, updateCustomerAPI, updateCompanyAPI, uploadDocumentAPI} from '../../util/api';
+import { getCustomerAPI, getCustomerRequestAPI, getCompanyAPI, updateCustomerAPI, updateCompanyAPI, uploadDocumentAPI, updateRequestAPI} from '../../util/api';
 import { notification } from 'antd';
 import { useParams } from 'react-router-dom';
-import CustomerRequestsTable from '../../component/forms/customerrequest_table';
+import CustomerRequestsTable from '../../component/forms/customer_form/customerrequest_table';
 import FileUploader from '../../component/file/fileuploader'; // Import FileUploader component
 import DocumentList from '../../component/file/documentlist';
 
 const CustomerProfile = () => {
   const {user_id} = useParams();
+  const [loading, setLoading] = useState(true);  
   const [haveCompany, setHaveCompany] = useState(false);
   const [requests, setRequests] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const [companyInfo, setCompanyInfo] = useState({});
   const [uploadedFile, setUploadedFile] = useState(null); // State for uploaded file
-
   const handleUserChange = (e) => {
     setUserInfo({
       ...userInfo,
@@ -31,10 +31,12 @@ const CustomerProfile = () => {
   const handleFileSelect = (file) => {
     setUploadedFile(file); // Store selected file in state
   };
+  const handleReqChange = (updatedRequests) => {
+    setRequests(updatedRequests);
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     // Update customer and company information first
     const res = await updateCustomerAPI(userInfo);
     if (res?.EC === 0) {
@@ -45,8 +47,9 @@ const CustomerProfile = () => {
     } else {
       notification.error({
         message: 'Lỗi cập nhật thông tin khách hàng',
-        description: res.message || 'Không thể cập nhật thông tin khách hàng',
+        description: res || 'Không thể cập nhật thông tin khách hàng',
       });
+      console.log(res);
     }
 
     const res2 = await updateCompanyAPI(companyInfo);
@@ -61,6 +64,20 @@ const CustomerProfile = () => {
         description: res2.message || 'Không thể cập nhật thông tin công ty',
       });
     }
+    // Update request information
+    for (let index = 0; index < requests.length; index++) {
+      const res3 = await updateRequestAPI(requests[index]);
+      if (res3?.EC === 0) {
+      } else {
+        notification.error({
+          message: 'Lỗi cập nhật ',
+          description: res3.message || 'Không thể cập nhật thông tin dịch vụ',
+        });
+      }
+      
+    }
+    
+
 
     // If a file is uploaded, handle it using FormData
     if (uploadedFile) {
@@ -91,7 +108,7 @@ const CustomerProfile = () => {
       }
     };
     fetchUser();
-  }, [user_id]);
+  }, []);
 
   useEffect(() => {
     const fetchCompany = async () => {
@@ -109,18 +126,18 @@ const CustomerProfile = () => {
       }
     };
     fetchCompany();
-  }, [user_id]);
+  }, []);
 
   useEffect(() => {
     const fetchRequest = async () => {
       const res = await getCustomerRequestAPI(user_id);
       if (res?.EC === 0) {
-        setRequests(res.requests || []);
+        setRequests(res.requests);
+        setLoading(false);  
       }
     };
     fetchRequest();
-  }, [user_id]);
-
+  },[]);
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -134,7 +151,15 @@ const CustomerProfile = () => {
             onChange={handleUserChange}
           />
         </div>
-
+        <div>
+          <label>Tên viết tắt:</label>
+          <input
+            type="text"
+            name="initials"
+            value={userInfo.initials || ''}
+            onChange={handleUserChange}
+          />
+        </div>
         <div>
           <label>Số Điện Thoại:</label>
           <input
@@ -144,13 +169,30 @@ const CustomerProfile = () => {
             onChange={handleUserChange}
           />
         </div>
-
         <div>
           <label>Email:</label>
           <input
             type="email"
             name="email"
             value={userInfo.email || ''}
+            onChange={handleUserChange}
+          />
+        </div>
+        <div>
+        <label>Quốc tịch  </label>
+          <input
+            type="text"
+            name="nationality"
+            value={userInfo.nationality || ''}
+            onChange={handleUserChange}
+          />
+        </div>
+        <div>
+          <label>Ghi chú:</label>
+          <input
+            type="text"
+            name="note"
+            value={userInfo.note || ''}
             onChange={handleUserChange}
           />
         </div>
@@ -177,7 +219,15 @@ const CustomerProfile = () => {
                 onChange={handleCompanyChange}
               />
             </div>
-
+            <div>
+              <label>Ngành nghề kinh doanh sản xuất :</label>
+              <input
+                type="text"
+                name="manufacturing_industry"
+                value={companyInfo.manufacturing_industry || ''}
+                onChange={handleCompanyChange}
+              />
+            </div>
             <div>
               <label>Mã số thuế:</label>
               <input
@@ -187,7 +237,6 @@ const CustomerProfile = () => {
                 onChange={handleCompanyChange}
               />
             </div>
-
             <div>
               <label>Email:</label>
               <input
@@ -207,20 +256,33 @@ const CustomerProfile = () => {
                 onChange={handleCompanyChange}
               />
             </div>
+            <div>
+              <label>Ghi chú :</label>
+              <input
+                type="text"
+                name="note"
+                value={companyInfo.note || ''}
+                onChange={handleCompanyChange}
+              />
+            </div>
           </>
         )}
         <h3>
           Tài Liệu đã tải lên
         </h3>
-        <DocumentList user_id={user_id} /> {/* Document list component */}
-
-
+        <DocumentList user_id={user_id} /> 
         <h3>Tải Tài Liệu Lên</h3>
-        <FileUploader onFileSelect={handleFileSelect} /> {/* File uploader component */}
+        <FileUploader onFileSelect={handleFileSelect} /> 
 
         <h3>Dịch vụ đã sử dụng</h3>
-        <CustomerRequestsTable requests={requests} />
-
+        {loading ? (  // Check if loading is true
+                <div>Loading...</div>  // Display a loading message while data is being fetched
+            ) : (
+                <CustomerRequestsTable 
+                    initialRequests={requests} 
+                    onReqChanges={handleReqChange} 
+                />
+            )}
         <button type="submit">Lưu</button>
       </form>
     </>

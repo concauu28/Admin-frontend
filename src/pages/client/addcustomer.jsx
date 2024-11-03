@@ -11,11 +11,14 @@ const AddCustomer = () => {
         customer_email: null,
         nationality: null,
         initials: null,
+        u_note:'',
         status: "Active", // Assuming status is always "Active" at creation
         company_name: null,
         company_email: null,
         tax_number: null,
         address: null,
+        debt: 0.00,
+        c_note:'',
         business_domain: null,
     });
 
@@ -40,6 +43,7 @@ const AddCustomer = () => {
             nationality: userInfo.nationality,
             initials: userInfo.initials,
             status: userInfo.status,
+            note : userInfo.u_note,
         };
         
         const res = await addCustomerAPI(customerData);
@@ -71,7 +75,8 @@ const AddCustomer = () => {
             tax_number: userInfo.tax_number,
             company_email: userInfo.company_email,
             address: userInfo.address,
-            debt: 0, // Assuming a default value for debt as per your example
+            debt: userInfo.debt, 
+            note: userInfo.c_note,
         };
         const res = await addCompanyAPI(companyData);
         if (res?.EC === 0) {
@@ -102,6 +107,16 @@ const AddCustomer = () => {
                     />
                 </div>
                 <div>
+                    <label>*Viết tắt:</label>
+                    <input
+                        type="text"
+                        name="initials"
+                        value={userInfo.initials}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                {/* <div>
                     <label>Tên đăng nhập:</label>
                     <input
                         type="text"
@@ -109,7 +124,7 @@ const AddCustomer = () => {
                         value={userInfo.username}
                         onChange={handleChange}
                     />
-                </div>
+                </div> */}
                 <div>
                     <label>Số Điện Thoại:</label>
                     <input
@@ -138,13 +153,12 @@ const AddCustomer = () => {
                     />
                 </div>
                 <div>
-                    <label>*Viết tắt:</label>
+                    <label>Ghi chú :</label>
                     <input
                         type="text"
-                        name="initials"
-                        value={userInfo.initials}
+                        name="note"
+                        value={userInfo.note}
                         onChange={handleChange}
-                        required
                     />
                 </div>
 
@@ -195,6 +209,24 @@ const AddCustomer = () => {
                         onChange={handleChange}
                     />
                 </div>
+                <div>
+              <label>Công nợ:</label>
+              <input
+                type="text"
+                name="debt"
+                value={userInfo.debt || ''}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label>Ghi chú :</label>
+              <input
+                type="text"
+                name="note"
+                value={userInfo.note || ''}
+                onChange={handleChange}
+              />
+            </div>
                 <button type="submit">Lưu</button>
             </form>
         </>

@@ -64,7 +64,7 @@ const AddProviderService = ({ listprovider, services, onSubmit }) => {
                     value={formData.price}
                     onChange={handleChange}
                     placeholder="Nhập giá"
-                    required
+                    
                 />
             </div>
             <div>
@@ -75,7 +75,7 @@ const AddProviderService = ({ listprovider, services, onSubmit }) => {
                     value={formData.availability}
                     onChange={handleChange}
                     placeholder="Nhập thời gian hoạt động"
-                    required
+                    
                 />
             </div>
             <div>

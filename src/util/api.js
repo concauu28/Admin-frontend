@@ -29,6 +29,15 @@ const updateCustomerAPI = (data)=>{
     const URL_API = `/updatecustomer/`
     return axios.put(URL_API,userinfo)
 }
+const updateRequestAPI = (data)=>{
+    const request= data
+    const URL_API='/updaterequest'
+    return axios.put(URL_API,request)}
+const updateServiceAPI = (data)=>{
+    const service = data
+    const URL_API='/updateservice'
+    return axios.put(URL_API, service)
+}
 const updateCompanyAPI = (data)=>{
     const companyInfo=data
     const URL_API = `/updatecompany`
@@ -150,10 +159,34 @@ const deleteDocumentAPI =async (doc_name)=>{
       return response;
 }
 
+const addEmailRemiderAPI = (data)=>{
+    const emailRemider = data
+    const URL_API='/schedule'
+    return axios.post(URL_API,emailRemider)
+}
+const getEmailRemiderAPI = (data)=>{
+    const user_id = data
+    const URL_API=`/getspecificjob/${user_id}`
+    return axios.get(URL_API)
+}
+const updateEmailRemiderAPI = (data)=>{
+    const emailRemider = data
+    const URL_API='/updatejob'
+    return axios.put(URL_API,emailRemider)
+}
+const deleteEmailRemiderAPI = (data)=>{
+    const id = data
+    const URL_API=`/deletejob/${id}`
+    return axios.delete(URL_API)
+}
+
+
 export{
     createEmployeeAPI,addRequestAPI, addProviderAPI, updateCustomerAPI,
     loginAPI,getUserAPI, getCustomerAPI, getlistCustomerAPI, getCustomerRequestAPI, addCustomerAPI, addCompanyAPI,
     getServicesAPI,getCompanyAPI, getRequestsAPI, addServiceAPI, addRecurringRequestAPI, getlistProviderAPI, 
     addProviderServiceAPI, updateCompanyAPI, reportUserAPI, getProviderAPI, getProviderServiceAPI
-    ,updateProviderAPI,updateProviderServicesAPI, uploadDocumentAPI, getDocumentAPI, deleteDocumentAPI
+    ,updateProviderAPI,updateProviderServicesAPI, uploadDocumentAPI, getDocumentAPI, deleteDocumentAPI,
+    updateRequestAPI, addEmailRemiderAPI, getEmailRemiderAPI, updateEmailRemiderAPI, deleteEmailRemiderAPI,
+    updateServiceAPI
 }

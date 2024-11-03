@@ -1,7 +1,7 @@
-import { notification, Table } from "antd";
-import { useEffect, useState, useNavigate } from "react";
+import { notification } from "antd";
+import { useEffect, useState } from "react";
 import { getRequestsAPI } from "../../util/api";
-import RequestTable from "../../component/forms/requeststable";
+import RequestTable from "../../component/forms/customer_form/requeststable";
 const RequestPage = ()=>{
     const [initialRequests, setinitialRequests]= useState([])
     // const navigate = useNavigate();
@@ -21,15 +21,10 @@ const RequestPage = ()=>{
         }
         fetchRequests()
     },[])
-
-    const handleSaveChanges = (modifiedRequests) => {
-        // Here you can send the modified requests to the backend to update the database
-        console.log('Modified Requests:', modifiedRequests);
-    };
     return (
         <div>
             <h1>Danh sách mua hàng </h1>
-            <RequestTable initialRequests={initialRequests} onSaveChanges={handleSaveChanges} />
+            <RequestTable initialRequests={initialRequests}/>
         </div>
     );
 }

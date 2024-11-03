@@ -1,64 +1,46 @@
 import React, { useState, useEffect } from 'react';
 
-const RequestTable = ({ initialRequests, onSaveChanges }) => {
+const CustomerRequestsTable = ({ initialRequests, onReqChanges }) => {
     const [requests, setRequests] = useState([]);
-    const [modifiedRequests, setModifiedRequests] = useState({});
-
     useEffect(() => {
         setRequests(initialRequests);
-    }, [initialRequests]);
-
+    },[]);
     const handleInputChange = (e, requestId) => {
         const { name, value } = e.target;
-
-        // Update the requests state with the new value
-        setRequests(prevRequests =>
-            prevRequests.map(request =>
-                request.request_id === requestId
-                    ? { ...request, [name]: value }
-                    : request
-            )
+        // Update the local requests state
+        const updatedRequests = requests.map(request =>
+            request.request_id === requestId
+                ? { ...request, [name]: value }
+                : request
         );
-
-        // Track the changes in modifiedRequests
-        setModifiedRequests(prevModifiedRequests => ({
-            ...prevModifiedRequests,
-            [requestId]: {
-                ...prevModifiedRequests[requestId],
-                [name]: value
-            }
-        }));
+        
+        setRequests(updatedRequests);  // Update the local state
+        // Send the updated data to the parent component
+        onReqChanges(updatedRequests);
     };
-
-    const handleSaveChanges = () => {
-        onSaveChanges(modifiedRequests);
-        setModifiedRequests({});
-    };
-
     return (
         <div>
             <table border="1" cellPadding="10" cellSpacing="0">
                 <thead>
                     <tr>
-                        <th>Mã mua hàng </th>
-                        <th>Tên dịch vụ</th>
-                        <th>Khách hàng </th>
-                        <th>Ngày khởi tạo </th>
+                        <th>Mã mua hàng</th>
+                        <th>Khởi tạo</th>
                         <th>Trạng thái</th>
-                        <th>Thành phố </th>
-                        <th> Khu vực</th>
+                        <th>Thành phố</th>
+                        <th>Khu vực</th>
                         <th>Deadline</th>
-                        <th>Ghi chú</th>
-                        <th>Tình trạng thanh toán</th>
-                        <th>...</th>
+                        <th>Mã dịch vụ</th>
+                        <th>Tên dịch vụ</th>
+                        <th>Thông tin dịch vụ</th>
+                        <th>Chi phí</th>
+                        <th>Ghi chú dịch vụ</th>
+                        <th>Thanh toán</th>
                     </tr>
                 </thead>
                 <tbody>
                     {requests.map(request => (
                         <tr key={request.request_id}>
                             <td>{request.request_id}</td>
-                            <td>{request.service_name}</td>
-                            <td>{request.customer_name}</td>
                             <td>{new Date(request.request_date).toLocaleDateString()}</td>
                             <td>
                                 <input
@@ -92,14 +74,11 @@ const RequestTable = ({ initialRequests, onSaveChanges }) => {
                                     onChange={(e) => handleInputChange(e, request.request_id)}
                                 />
                             </td>
-                            <td>
-                                <input
-                                    type="text"
-                                    name="request_notes"
-                                    value={request.request_notes || ''}
-                                    onChange={(e) => handleInputChange(e, request.request_id)}
-                                />
-                            </td>
+                            <td>{request.service_id}</td>
+                            <td>{request.service_name}</td>
+                            <td>{request.service_description}</td>
+                            <td>{request.service_price}</td>
+                            <td>{request.service_notes || ''}</td>
                             <td>
                                 <input
                                     type="text"
@@ -108,18 +87,12 @@ const RequestTable = ({ initialRequests, onSaveChanges }) => {
                                     onChange={(e) => handleInputChange(e, request.request_id)}
                                 />
                             </td>
-                            <td>
-                                {/* Add any actions like delete or additional actions here */}
-                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <button onClick={handleSaveChanges} disabled={Object.keys(modifiedRequests).length === 0}>
-                Luu thay doi
-            </button>
         </div>
     );
 };
 
-export default RequestTable;
+export default CustomerRequestsTable;

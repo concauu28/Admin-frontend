@@ -1,7 +1,7 @@
-import { notification, Table } from "antd";
-import { useEffect, useState, useNavigate } from "react";
-import RequestForm from "../../component/forms/addrequestform";
-import RecurringTable from "../../component/forms/recurringrequesttable";
+import { notification } from "antd";
+import { useEffect, useState } from "react";
+import RequestForm from "../../component/forms/customer_form/addrequestform";
+import RecurringTable from "../../component/forms/customer_form/recurringrequesttable";
 import { getlistCustomerAPI, getServicesAPI, addRequestAPI,getRequestsAPI } from '../../util/api';
 const AddRequest = ()=>{
     const [flip, setFlip] = useState(false);

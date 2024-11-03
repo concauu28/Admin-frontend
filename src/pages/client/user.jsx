@@ -1,7 +1,7 @@
-import { notification, Table } from "antd";
-import { useEffect, useState, useNavigate } from "react";
+import { notification } from "antd";
+import { useEffect, useState } from "react";
 import { getlistCustomerAPI } from "../../util/api";
-import CustomerTable from "../../component/forms/listofuser";
+import CustomerTable from "../../component/forms/customer_form/listofuser";
 const UserPage = ()=>{
     const [dataSource, setDataSource]= useState([])
     useEffect(()=>{

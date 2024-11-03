@@ -69,7 +69,7 @@ const CreateProvider = () => {
                     />
                 </div>
                 <div>
-                    <label>*Email:</label>
+                    <label>Email:</label>
                     <input
                         type="email"
                         name="email"
@@ -104,21 +104,21 @@ const CreateProvider = () => {
                         onChange={handleChange}
                     />
                 </div>
-                {/* <div>
-                    <label>Nợ:</label>
-                    <input
-                        type="number"
-                        name="debt"
-                        value={providerInfo.debt}
-                        onChange={handleChange}
-                    />
-                </div> */}
                 <div>
                     <label>Là nội bộ:</label>
                     <input
                         type="checkbox"
                         name="isInternal"
                         checked={providerInfo.isInternal}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <label>Công nợ:</label>
+                    <input
+                        type="text"
+                        name="debt"
+                        value={providerInfo.debt}
                         onChange={handleChange}
                     />
                 </div>
